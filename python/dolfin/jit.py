@@ -96,6 +96,7 @@ def ffc_jit(ufl_form, form_compiler_parameters=None):
     # Prepare form compiler parameters with overrides from dolfin
     p = ffc.default_jit_parameters()
     p["scalar_type"] = "double complex" if common.has_petsc_complex else "double"
+    p["cpp_optimize_flags"] = "-pthread -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC"
     p.update(form_compiler_parameters or {})
     return ffc.jit(ufl_form, parameters=p)
 
